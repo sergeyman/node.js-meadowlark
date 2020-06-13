@@ -2,12 +2,36 @@
 <html>
 
 <head>
-    <title>Meadowlark Travel</title>
+    <title></title>
+
+    <!-- Include Test Framework -->
+	{{#if showTests}}
+		<link rel="stylesheet" href="/vendor/mocha.css">
+	{{/if}}
+
 </head>
 
 <body>
     <header><img src="/img/logo.png" alt="Logo" style="float: left; margin-right: 200px;"></header>
+
     {{{body}}}
+
+    <!-- Include Test Framework 2 -->
+    <script src="//code.jquery.com/jquery-2.0.2.min.js"></script>
+    {{#if showTests}}
+        <div id="mocha"></div>
+        <script src="/vendor/mocha.js"></script>
+        <script src="/vendor/chai.js"></script>
+        <script>
+            mocha.ui('tdd');
+            var assert = chai.assert;
+        </script>
+        <script src="/qa/tests-global.js"></script>
+        {{#if pageTestScript}}
+        <script src="{{pageTestScript}}"></script>
+        {{/if}}
+        <script>mocha.run();</script>
+    {{/if}}
 </body>
 
 </html>
