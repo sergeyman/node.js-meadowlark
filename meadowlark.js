@@ -2,6 +2,8 @@ var express = require("express");
 var app = express();
 app.set("port", process.env.PORT || 3001);
 
+var fortune = require('./lib/fortune.js');
+
 // Установка механизма представления handlebars
 var handlebars = require('express-handlebars')
     .create({ defaultLayout:'main' });                  //указываем макет по умолчанию
@@ -11,13 +13,7 @@ app.set('views', './views');
 
 app.use(express.static(__dirname + '/public'));
 
-var fortunes = [
-    "Победи свои страхи, или они победят тебя.",
-    "Рекам нужны истоки.",
-    "Не бойся неведомого.",
-    "Тебя ждет приятный сюрприз.",
-    "Будь проще везде, где только можно.",
-];
+
 
 app.get('/', function(req, res){
     //res.type('text/plain');
@@ -30,9 +26,9 @@ app.get('/about', function(req, res){
     // res.type('text/plain');
     // res.send('О Meadowlark Travel');
 
-    let randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
-       
-    res.render('about', { fortune: randomFortune });
+    //let randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];       
+    //res.render('about', { fortune: randomFortune });
+    res.render('about', { fortune: fortune.getFortune() });
 });
 
 // пользовательская страница 404
